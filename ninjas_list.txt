@@ -1,0 +1,60 @@
+{ 
+	"name": "mario1",
+	"rank": "belt1",
+	"email": "mario1@ninja.com",
+	"password": "1234ninja1",
+	"available": true,
+	"geometry": {
+		"type": "Point",
+		"coordinates": [-80.245, 25.391]
+	}
+}
+
+{ 
+	"name": "mario2",
+	"rank": "belt2",
+	"email": "mario2@ninja.com",
+	"password": "1234ninja2",
+	"available": true,
+	"geometry": {
+		"type": "Point",
+		"coordinates": [-80.345, 25.291]
+	}
+}
+
+{ 
+	"name": "mario3",
+	"rank": "belt3",
+	"email": "mario3@ninja.com",
+	"password": "1234ninja3",
+	"available": true,
+	"geometry": {
+		"type": "Point",
+		"coordinates": [-80.245, 25.291]
+	}
+}
+
+{ 
+	"name": "mario4",
+	"rank": "belt4",
+	"email": "mario4@ninja.com",
+	"password": "1234ninja4",
+	"available": true,
+	"geometry": {
+		"type": "Point",
+		"coordinates": [-80.345, 25.381]
+	}
+}
+
+
+{ 
+	"name": "mario5",
+	"rank": "belt5",
+	"email": "mario5@ninja.com",
+	"password": "1234ninja5",
+	"available": true,
+	"geometry": {
+		"type": "Point",
+		"coordinates": [-80.245, 25.391]
+	}
+}

@@ -1,0 +1,5 @@
+//script for automate token -> getting token from response after login!
+
+if(pm.response.code === 200) {
+    pm.enviroment.set('authToken', pm.response.json().token)
+}

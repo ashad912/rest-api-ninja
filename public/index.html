@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ninjago</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles.css" type="text/css">
+    </head>
+    <body>
+        <h1 class="title">Ninjago - a Ninja REST API</h1>
+        <div id="homepage">
+            <h1>Hire a ninja in your area!</h1>
+            <div id="ninjas"></div>
+        </div>
+
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+        <!-- Create React Component-->
+        <script type="text/babel">
+        
+        
+
+        class Ninjas extends React.Component{
+
+            //es5
+            /*
+            getInitialState: function(){
+                return({
+                    ninjas: []
+                })
+            }
+            */
+            state = {
+                ninjas: [],
+                fetched: false,
+                error: false
+            } 
+
+            handleSubmit = (e) => { //we need to create query string for server!
+                e.preventDefault()
+                const lng = this.refs.lng.value; //ref is set as input param 'ref'
+                const lat = this.refs.lat.value;
+
+                //native method, expected promise
+                fetch('/api/ninjas?lng='+ lng + '&lat=' + lat).then((data)=>{
+                    if(data.toString() !== 'error')
+                        return data.json() //passing json ninjas data
+                    else
+                        throw data
+                }).then ((json)=> {
+                    this.setState({
+                        ninjas: json,
+                        fetched: true,
+                        error: false,
+                    })
+                }).catch(err => {
+                    this.setState({
+                        fetched: true,
+                        error: true
+                    })
+                })
+            }
+
+            render() {
+                console.log(this.state.ninjas)
+                let ninjas = this.state.ninjas;
+
+                ninjas = !this.state.fetched || ninjas.length ? (
+                     ninjas.map((ninja, index)=> { //index for key - its neccesary for react
+                        return(
+                            <li key={index}>
+                                <span className={ninja.available.toString()}></span>
+                                <span className="name">{ninja.name}</span>
+                                <span className="rank">{ninja.rank}</span>
+                                <span className="dist">{Math.floor(ninja.dist.calculated/ 1000)} km</span>
+                            </li>
+                        )
+                    })
+                ) : (
+                    <span>There is no ninjas in the area!</span>
+                )
+                
+                const content = !this.state.error ? (
+                    ninjas
+                ) : (
+                    <span>Wrong parameters!</span>
+                )
+
+                return(
+                
+                <div id="ninja-container">
+                    <form id="search" onSubmit={this.handleSubmit}>
+                        <label>Enter your latitude:</label>
+                        <input type="text" ref="lat" placeholder="latitude" required />
+                        <label>Enter your longitude:</label>
+                        <input type="text" ref="lng" placeholder="longitude" required />
+                        <input type="submit" value="Find Ninjas" />
+                    </form>
+                    <ul>{content}</ul>
+                </div> 
+                )
+            }
+        }
+        //rendering to div with class "ninjas"
+        ReactDOM.render(<Ninjas />, document.getElementById('ninjas'))
+        </script>   
+
+
+    </body>
+</html>
